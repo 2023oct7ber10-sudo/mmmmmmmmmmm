@@ -10,6 +10,7 @@ import { SearchSection } from "./components/SearchSection";
 import { ResultCard } from "./components/ResultCard";
 import { StatsSection } from "./components/StatsSection";
 import { AllResultsSection } from "./components/AllResultsSection";
+import { RegistrationPage } from "./components/RegistrationPage";
 import { Footer } from "./components/Footer";
 import { FloatingDonationButton } from "./components/FloatingDonationButton";
 import { VisitorStats } from "./components/VisitorStats";
@@ -22,7 +23,7 @@ function App() {
   const [searchResult, setSearchResult] = useState<Student | null>(null);
   const [searchAttempted, setSearchAttempted] = useState(false);
   const [currentPage, setCurrentPage] = useState<
-    "main" | "results" | "schedule" | "news" | "donation"
+    "main" | "registration" | "results" | "schedule" | "news" | "donation"
   >("main");
   const [isDarkMode, setIsDarkMode] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -54,13 +55,13 @@ function App() {
   };
 
   const handleNavigation = (
-    page: "results" | "schedule" | "news" | "donation"
+    page: "registration" | "results" | "schedule" | "news" | "donation"
   ) => {
     setCurrentPage(page);
   };
 
   const handleFullNavigation = (
-    page: "main" | "results" | "schedule" | "news" | "donation"
+    page: "main" | "registration" | "results" | "schedule" | "news" | "donation"
   ) => {
     setCurrentPage(page);
 
@@ -73,7 +74,7 @@ function App() {
     // Scroll to top when navigating
     window.scrollTo({ top: 0, behavior: "smooth" });
     // Reset search when navigating
-    if (page !== "results") {
+    if (page !== "results" && page !== "registration") {
       setSearchResult(null);
       setSearchAttempted(false);
     }
@@ -262,6 +263,10 @@ function App() {
                 isDarkMode={isDarkMode}
               />
             </>
+          )}
+
+          {currentPage === "registration" && (
+            <RegistrationPage isDarkMode={isDarkMode} />
           )}
 
           {currentPage === "schedule" && (
